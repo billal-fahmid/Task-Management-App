@@ -13,9 +13,14 @@ import useUser from '../hooks/useUser';
 const Teams = () => {
 
     const { user } = useContext(AuthContext)
+
+    const [userInfo , ,] = useUser(user.email)
+    console.log(userInfo)
+   
     const [users, isLoading, refetch] = useUsers();
     console.log(users)
-    const options = users.map(user => ({
+    const withoutCreator=users.filter(singleUser=>singleUser.email !== user.email)
+    const options = withoutCreator?.map(user => ({
         id: user._id,
         label: user.userName,
         value: user.userName,
@@ -31,7 +36,12 @@ const Teams = () => {
     const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
     const onSubmit = (data, e) => {
         // console.log(data)
-
+        data.selectedUsers.push({
+            id: userInfo._id,
+            label: userInfo.userName,
+            value: userInfo.userName,
+            status: 'accepted'
+        })
         const team = {
             teamName: data.teamName,
             createBy: user?.email,
@@ -49,9 +59,20 @@ const Teams = () => {
             .then(result => {
                 console.log(result)
                 const teamId = result.insertedId;
+                userInfo.myTeams.push(teamId)
                 if (result.insertedId) {
                     console.log(result.insertedId)
-                    console.log(data.selectedUsers)
+                    fetch(`http://localhost:5000/update/myTeams/${userInfo._id}`,{
+                        method: 'PATCH',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(userInfo.myTeams)
+                    })
+                    .then(res=>res.json())
+                    .then(d => console.log(d))
+
+                    // console.log(data.selectedUsers)
                     data.selectedUsers?.map(worker => {
                         console.log(worker.id)
                         fetch(`http://localhost:5000/user/${worker.id}`)

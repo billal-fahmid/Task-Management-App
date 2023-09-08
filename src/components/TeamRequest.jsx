@@ -31,21 +31,31 @@ const TeamRequest = () => {
                         console.log(result1.teamMember)
                         let findMember = result1?.teamMember.find(member => member.id === userInfo._id)
                         const updateMember = result1?.teamMember.filter(member => member.id !== userInfo._id)
-                        findMember.status='accepted'
+                        findMember.status = 'accepted'
                         updateMember.push(findMember)
                         console.log(updateMember)
-                        fetch(`http://localhost:5000/teamUpdate/${id}`,{
-                            method:'PATCH',
-                            headers:{
-                                'content-type':'application/json'
+                        fetch(`http://localhost:5000/teamUpdate/${id}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'content-type': 'application/json'
                             },
-                            body:JSON.stringify({newTeamMember:updateMember})
+                            body: JSON.stringify({ newTeamMember: updateMember })
                         })
-                        .then(res =>res.json())
-                        .then(data=>{
-                            console.log(data)
-                        })
-                        
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data)
+                                userInfo.myTeams.push(id)
+                                fetch(`http://localhost:5000/update/myTeams/${userInfo._id}`, {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(userInfo.myTeams)
+                                })
+                                    .then(res => res.json())
+                                    .then(d => console.log(d))
+                            })
+
                     })
 
             })

@@ -5,6 +5,7 @@ const storeUser = (user, bio) => {
         email: user.email,
         bio: bio,
         teamRequest:[],
+        myTeams:[]
     }
     fetch(`https://tasks-manage-server-billal-fahmid.vercel.app/users/${user?.email}`, {
         method: 'PUT',

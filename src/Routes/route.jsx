@@ -13,6 +13,7 @@ import Signin from "../components/SigninSignup/Singin";
 import Teams from "../components/Teams";
 import PrivateRoute from "./PrivateRoute";
 import TeamRequest from "../components/TeamRequest";
+import MyTeams from "../components/MyTeams";
 
 
   export const router = createBrowserRouter([
@@ -26,23 +27,27 @@ import TeamRequest from "../components/TeamRequest";
             element:<Deshboard></Deshboard>
         },
         {
-            path:'addTask',
+            path:'/addTask',
             element:<PrivateRoute><AddNewTask></AddNewTask></PrivateRoute>
         },
         {
-            path:'allTasks',
+            path:'/allTasks',
             element:<PrivateRoute><AllTasks></AllTasks></PrivateRoute>
         },
         {
-            path:'employee',
+            path:'/employee',
             element:<Employee></Employee>
         },
         {
-            path:'teamRequest',
+            path:'/myTeams',
+            element:<PrivateRoute><MyTeams></MyTeams></PrivateRoute>
+        },
+        {
+            path:'/teamRequest',
             element:<PrivateRoute><TeamRequest></TeamRequest></PrivateRoute>
         },
         {
-            path:'teams',
+            path:'/teams',
             element:<PrivateRoute><Teams></Teams></PrivateRoute>
         },
         {

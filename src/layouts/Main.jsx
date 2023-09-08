@@ -33,11 +33,12 @@ const Main = () => {
                     <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                         {/* Sidebar content here */}
                         <li><Link to='/'>Dashboard</Link></li>
-                        <li><Link to='addTask'>Add New Task</Link></li>
-                        <li><Link to='allTasks'>All Tasks</Link></li>
-                        <li><Link to='teamRequest'>Team Request</Link></li>
-                        <li><Link to='teams'>Teams</Link></li>
-                        <li><Link to='employee'>Employee</Link></li>
+                        <li><Link to='/addTask'>Add New Task</Link></li>
+                        <li><Link to='/allTasks'>All Tasks</Link></li>
+                        <li><Link to='/myTeams'>My Teams</Link></li>
+                        <li><Link to='/teamRequest'>Team Request</Link></li>
+                        <li><Link to='/teams'>Teams</Link></li>
+                        <li><Link to='/employee'>Employee</Link></li>
 
                     </ul>
 
